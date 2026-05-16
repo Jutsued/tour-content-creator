@@ -204,6 +204,13 @@ input[type=color]{width:100%;height:30px;border:none;border-radius:6px;cursor:po
       <!-- Export -->
       <div class="sec">
         <div class="sec-label">Export</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <span style="font-size:10px;color:#555;white-space:nowrap">Slide duration</span>
+          <input type="range" min="2" max="10" value="5" step="1" id="durationSlider"
+            oninput="SECS_PER_SLIDE=parseInt(this.value);document.getElementById('durationVal').textContent=this.value+'s'"
+            style="flex:1;accent-color:#ff6b35">
+          <span id="durationVal" style="font-size:11px;color:#ff9f6b;min-width:24px">5s</span>
+        </div>
         <div class="export-group">
           <button class="exp-btn exp-carousel" id="btnCarousel" onclick="exportCarousel()" disabled>
             <span class="exp-icon">🖼️</span>
@@ -267,7 +274,7 @@ const MODES = {
   }
 };
 const FPS = 25;
-const SECS_PER_SLIDE = 3;
+let SECS_PER_SLIDE = 5;
 
 // ─── State ────────────────────────────────────────────────────────────────────
 let mode = 'carousel';
@@ -601,7 +608,7 @@ async function exportReel(hybrid) {
   const cfg = MODES[mode];
   const w = cfg.ew, h = cfg.eh;
   const scale = w / cfg.pw;
-  const secsPerSlide = hybrid ? 2.5 : SECS_PER_SLIDE;
+  const secsPerSlide = SECS_PER_SLIDE;
 
   setExpMsg('Loading images...', 0, true);
   const imgs = [];
