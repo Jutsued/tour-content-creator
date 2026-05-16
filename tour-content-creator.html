@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tour Content Creator · Ambiorix Tours</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d0d16;color:#dde0ee;height:100vh;overflow:hidden;font-size:13px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#2a2a40;border-radius:4px}
+.app{display:flex;flex-direction:column;height:100vh}
+.header{background:#12121e;border-bottom:1px solid #1e1e32;padding:8px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo{font-size:16px;font-weight:700;color:#ff6b35;letter-spacing:-0.3px}
+.header-sub{font-size:11px;color:#555}
+.mode-bar{background:#0f0f1c;border-bottom:1px solid #1e1e32;display:flex;padding:6px 12px;gap:6px;flex-shrink:0}
+.mode-btn{flex:1;padding:8px 6px;border-radius:8px;border:1px solid #2a2a40;background:#1a1a2c;color:#888;cursor:pointer;font-size:11px;font-weight:600;transition:all .15s;text-align:center;line-height:1.3}
+.mode-btn:hover{background:#1e1e34;border-color:#444}
+.mode-btn.active{background:#ff6b3520;border-color:#ff6b35;color:#ff9f6b}
+.mode-icon{display:block;font-size:18px;margin-bottom:2px}
+.mode-stat{display:block;font-size:9px;color:#555;font-weight:400;margin-top:2px}
+.mode-btn.active .mode-stat{color:#ff6b3588}
+.main{display:grid;grid-template-columns:255px 1fr 285px;flex:1;overflow:hidden}
+.panel{display:flex;flex-direction:column;overflow:hidden}
+.left{background:#0f0f1c;border-right:1px solid #1e1e32}
+.center{background:#0a0a14;align-items:center;justify-content:center;gap:8px}
+.right{background:#0f0f1c;border-left:1px solid #1e1e32;overflow-y:auto}
+.sec{padding:10px 13px;border-bottom:1px solid #1a1a28}
+.sec-label{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px;font-weight:600}
+.upload-btn{width:100%;padding:9px;background:#1b1b2e;border:1px dashed #2a2a44;border-radius:7px;color:#777;font-size:11px;cursor:pointer;margin-bottom:8px;transition:all .15s}
+.upload-btn:hover{border-color:#ff6b35;color:#ff9f6b}
+.url-row{display:flex;gap:5px}
+.url-in{flex:1;background:#1b1b2e;border:1px solid #2a2a40;border-radius:6px;padding:6px 8px;color:#dde0ee;font-size:11px;outline:none;transition:border-color .15s}
+.url-in:focus{border-color:#ff6b35}
+.add-btn{background:#ff6b35;border:none;border-radius:6px;color:#fff;padding:6px 12px;font-weight:700;font-size:14px;cursor:pointer;transition:opacity .15s}
+.add-btn:hover{opacity:.85}
+.slide-list{flex:1;overflow-y:auto;padding:5px}
+.empty-lib{text-align:center;color:#2e2e44;padding:24px 0;font-size:11px;line-height:1.7}
+.slide-item{display:flex;align-items:center;gap:6px;padding:5px 7px;border-radius:7px;cursor:pointer;border:1px solid transparent;margin-bottom:3px;transition:all .15s;position:relative}
+.slide-item:hover{background:#181828}
+.slide-item.sel{background:#1c1c2e;border-color:#ff6b3444}
+.slide-item.drop-hover{border-color:#ff6b35;background:#1e160a}
+.slide-item.first-slide::after{content:'HOOK';position:absolute;top:4px;right:34px;font-size:8px;background:#ff6b3528;color:#ff9f6b;padding:1px 4px;border-radius:3px;font-weight:700;letter-spacing:.5px}
+.snum{font-size:9px;color:#444;min-width:13px;text-align:center}
+.sthumb{width:42px;height:42px;object-fit:cover;border-radius:5px;flex-shrink:0;background:#1a1a2a}
+.sname{flex:1;font-size:10px;color:#666;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sarrows{display:flex;flex-direction:column}
+.sarrow{background:none;border:none;color:#3a3a52;font-size:9px;line-height:1;padding:1px 4px;cursor:pointer;transition:color .1s}
+.sarrow:hover{color:#aaa}
+.sdel{background:none;border:none;color:#5a2a2a;font-size:13px;padding:0 3px;cursor:pointer;transition:color .1s}
+.sdel:hover{color:#ff5555}
+.count-bar{padding:7px 12px;border-top:1px solid #1a1a28;font-size:10px;color:#444;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.count-tip{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600}
+.tip-good{background:#0f2a1a;color:#4ade80}
+.tip-low{background:#2a1a0a;color:#ff9f6b}
+.tip-ok{background:#1e1e0e;color:#d4c44a}
+.strat-tip{background:#12121e;border:1px solid #1e1e32;border-radius:8px;padding:8px 12px;max-width:490px;font-size:10px;line-height:1.6;color:#777}
+.strat-tip strong{color:#ff9f6b}
+.canvas-wrap{position:relative;flex-shrink:0}
+#preview{border-radius:10px;border:2px solid #1e1e30;display:block;background:#111;max-height:calc(100vh - 180px)}
+.canvas-label{position:absolute;top:8px;left:8px;background:#00000099;color:#888;font-size:9px;padding:3px 7px;border-radius:4px;font-weight:700;letter-spacing:.8px}
+.empty-state{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#2a2a3a;pointer-events:none;border-radius:10px}
+.empty-icon{font-size:44px}
+.empty-text{font-size:12px;color:#333}
+.dots{display:flex;gap:5px;align-items:center}
+.dot{height:7px;border-radius:4px;border:none;cursor:pointer;transition:all .2s;flex-shrink:0}
+.ov-textarea{width:100%;background:#1b1b2e;border:1px solid #2a2a40;border-radius:7px;padding:7px;color:#dde0ee;font-size:11px;resize:none;outline:none;line-height:1.5;transition:border-color .15s}
+.ov-textarea:focus{border-color:#ff6b35}
+.pos-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-top:7px}
+.pos-btn{padding:7px 3px;border-radius:5px;border:1px solid #2a2a40;cursor:pointer;font-size:9px;background:#1b1b2e;color:#666;transition:all .1s}
+.pos-btn:hover:not(.active){background:#1e1e34;color:#aaa}
+.pos-btn.active{background:#ff6b3520;border-color:#ff6b3588;color:#ff9f6b}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.small-label{font-size:10px;color:#555;margin-bottom:4px}
+input[type=range]{width:100%;accent-color:#ff6b35}
+input[type=color]{width:100%;height:30px;border:none;border-radius:6px;cursor:pointer;background:none;padding:0}
+.export-group{display:flex;flex-direction:column;gap:7px}
+.exp-btn{width:100%;padding:10px 12px;border-radius:8px;font-size:11px;text-align:left;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:10px;border:1px solid}
+.exp-btn:disabled{opacity:.4;cursor:not-allowed}
+.exp-carousel{background:#1b1b2e;border-color:#2a2a40;color:#ccc}
+.exp-carousel:hover:not(:disabled){border-color:#888;color:#fff;background:#1f1f36}
+.exp-reel{background:#1a0e08;border-color:#ff6b3440;color:#ff9f6b}
+.exp-reel:hover:not(:disabled){background:#221508}
+.exp-hybrid{background:#0e1a24;border-color:#38a5ff40;color:#7ec8ff}
+.exp-hybrid:hover:not(:disabled){background:#121e2a}
+.exp-icon{font-size:18px;flex-shrink:0}
+.exp-info{display:flex;flex-direction:column;line-height:1.4}
+.exp-name{font-weight:600}
+.exp-desc{font-size:9px;margin-top:1px;opacity:.6}
+.exp-msg{font-size:10px;color:#ff9f6b;margin-top:6px;min-height:13px}
+.prog-wrap{background:#1b1b2e;border-radius:3px;height:3px;margin-top:5px;overflow:hidden;display:none}
+.prog-bar{height:3px;background:linear-gradient(90deg,#ff6b35,#ff9f6b);border-radius:3px;transition:width .1s}
+.convert-note{margin-top:8px;font-size:9px;color:#3a3a54;line-height:1.5}
+.convert-note a{color:#555;text-decoration:none}
+.convert-note a:hover{color:#888}
+.cap-input{width:100%;background:#1b1b2e;border:1px solid #2a2a40;border-radius:7px;padding:7px;color:#dde0ee;font-size:11px;outline:none;margin-bottom:8px;transition:border-color .15s}
+.cap-input:focus{border-color:#4ade80}
+.gen-btn{width:100%;padding:10px;background:#0e1f14;border:1px solid #1a4a28;border-radius:8px;color:#4ade80;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s}
+.gen-btn:hover:not(:disabled){background:#122018}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed}
+.cap-out-wrap{margin-top:8px;display:none}
+.cap-out{width:100%;background:#1b1b2e;border:1px solid #2a2a40;border-radius:7px;padding:7px;color:#b8bbd0;font-size:10px;resize:vertical;outline:none;line-height:1.7}
+.copy-btn{width:100%;padding:7px;background:#1b1b2e;border:1px solid #2a2a40;border-radius:6px;color:#666;font-size:10px;cursor:pointer;margin-top:5px;transition:all .15s}
+.copy-btn:hover{color:#ccc;border-color:#555}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Header -->
+  <div class="header">
+    <span class="logo">🏎️ Tour Content Creator</span>
+    <span class="header-sub">Extreme Leo / Ambiorix Tours &middot; Puerto Plata, Dominican Republic</span>
+  </div>
+
+  <!-- Mode Selector -->
+  <div class="mode-bar">
+    <button class="mode-btn" data-mode="reel" onclick="setMode('reel')">
+      <span class="mode-icon">🎬</span>Reel
+      <span class="mode-stat">9:16 vertical &middot; Reach new tourists</span>
+    </button>
+    <button class="mode-btn active" data-mode="carousel" onclick="setMode('carousel')">
+      <span class="mode-icon">🖼️</span>Carousel
+      <span class="mode-stat">1:1 square &middot; 8–10 slides &middot; High saves</span>
+    </button>
+    <button class="mode-btn" data-mode="hybrid" onclick="setMode('hybrid')">
+      <span class="mode-icon">⚡</span>Carousel Reel
+      <span class="mode-stat">9:16 &middot; 4× reach &amp; engagement &middot; Best pick</span>
+    </button>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="main">
+
+    <!-- LEFT: Media Library -->
+    <div class="panel left">
+      <div class="sec">
+        <div class="sec-label">Add Media</div>
+        <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+          📁 Upload Photos from Computer
+        </button>
+        <input id="fileInput" type="file" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
+        <div class="url-row">
+          <input class="url-in" id="urlInput" placeholder="Paste Cloudinary or any image URL..." onkeydown="if(event.key==='Enter')addUrl()">
+          <button class="add-btn" onclick="addUrl()">+</button>
+        </div>
+      </div>
+
+      <div class="slide-list" id="slideList">
+        <div class="empty-lib" id="emptyLib">No slides yet<br><span style="font-size:10px;color:#252535">Upload photos or paste URLs above</span></div>
+      </div>
+
+      <div class="count-bar" id="countBar" style="display:none">
+        <span id="countText"></span>
+        <span class="count-tip" id="countTip"></span>
+      </div>
+    </div>
+
+    <!-- CENTER: Preview Canvas -->
+    <div class="panel center">
+      <div class="strat-tip" id="stratTip"></div>
+      <div class="canvas-wrap">
+        <canvas id="preview"></canvas>
+        <div class="canvas-label" id="canvasLabel"></div>
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">🌴</div>
+          <div class="empty-text">Add photos to preview</div>
+        </div>
+      </div>
+      <div class="dots" id="dots"></div>
+    </div>
+
+    <!-- RIGHT: Controls -->
+    <div class="panel right">
+
+      <!-- Text Overlay -->
+      <div class="sec">
+        <div class="sec-label">Slide Text Overlay</div>
+        <textarea class="ov-textarea" id="ovText" rows="3" placeholder="Add text to this slide..." oninput="updateOv('text',this.value)" disabled></textarea>
+        <div class="sec-label" style="margin-top:10px">Position</div>
+        <div class="pos-grid">
+          <button class="pos-btn" data-p="top-left"    onclick="setPos('top-left')"   >↖ Top L</button>
+          <button class="pos-btn" data-p="top-center"  onclick="setPos('top-center')" >↑ Top C</button>
+          <button class="pos-btn" data-p="top-right"   onclick="setPos('top-right')"  >↗ Top R</button>
+          <button class="pos-btn" data-p="mid-left"    onclick="setPos('mid-left')"   >← Mid L</button>
+          <button class="pos-btn active" data-p="mid-center" onclick="setPos('mid-center')">• Center</button>
+          <button class="pos-btn" data-p="mid-right"   onclick="setPos('mid-right')"  >→ Mid R</button>
+          <button class="pos-btn" data-p="bot-left"    onclick="setPos('bot-left')"   >↙ Bot L</button>
+          <button class="pos-btn" data-p="bot-center"  onclick="setPos('bot-center')" >↓ Bot C</button>
+          <button class="pos-btn" data-p="bot-right"   onclick="setPos('bot-right')"  >↘ Bot R</button>
+        </div>
+        <div class="row2">
+          <div>
+            <div class="small-label" id="szLabel">Size: 36px</div>
+            <input type="range" min="16" max="72" value="36" id="szSlider"
+              oninput="updateOv('size',parseInt(this.value));document.getElementById('szLabel').textContent='Size: '+this.value+'px'" disabled>
+          </div>
+          <div>
+            <div class="small-label">Text Color</div>
+            <input type="color" id="colorIn" value="#ffffff" oninput="updateOv('color',this.value)" disabled>
+          </div>
+        </div>
+      </div>
+
+      <!-- Export -->
+      <div class="sec">
+        <div class="sec-label">Export</div>
+        <div class="export-group">
+          <button class="exp-btn exp-carousel" id="btnCarousel" onclick="exportCarousel()" disabled>
+            <span class="exp-icon">🖼️</span>
+            <span class="exp-info">
+              <span class="exp-name">Download Carousel Images</span>
+              <span class="exp-desc">1080×1080 JPGs &middot; upload directly to Instagram</span>
+            </span>
+          </button>
+          <button class="exp-btn exp-reel" id="btnReel" onclick="exportReel(false)" disabled>
+            <span class="exp-icon">🎬</span>
+            <span class="exp-info">
+              <span class="exp-name">Export Reel Video</span>
+              <span class="exp-desc">1080×1920 &middot; 9:16 vertical &middot; for Instagram Reels tab</span>
+            </span>
+          </button>
+          <button class="exp-btn exp-hybrid" id="btnHybrid" onclick="exportReel(true)" disabled>
+            <span class="exp-icon">⚡</span>
+            <span class="exp-info">
+              <span class="exp-name">Export Carousel Reel</span>
+              <span class="exp-desc">Best format in 2026 &middot; 4× reach &amp; engagement</span>
+            </span>
+          </button>
+        </div>
+        <div class="exp-msg" id="expMsg"></div>
+        <div class="prog-wrap" id="progWrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
+        <div class="convert-note">
+          Video exports as .webm — convert free to MP4 at <a href="https://cloudconvert.com" target="_blank">cloudconvert.com</a> before uploading to IG or YouTube.
+        </div>
+      </div>
+
+      <!-- AI Caption Generator -->
+      <div class="sec" style="border-bottom:none;padding-bottom:20px">
+        <div class="sec-label">AI Caption + Hashtags</div>
+        <input class="cap-input" id="topicInput" placeholder="Describe the post content..."
+          value="Dune buggy tour through jungle and mountains, Puerto Plata DR — epic off-road adventure with an amazing group">
+        <button class="gen-btn" id="genBtn" onclick="generateCaption()">✨ Generate Caption + Hashtags</button>
+        <div class="cap-out-wrap" id="capOutWrap">
+          <textarea class="cap-out" id="capOut" rows="13"></textarea>
+          <button class="copy-btn" onclick="copyCaption()">📋 Copy Caption</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Config ───────────────────────────────────────────────────────────────────
+const MODES = {
+  reel: {
+    tip: '<strong>🎬 Reel Mode</strong> — Best for reaching <strong>new tourists</strong> who don\'t follow you yet. Use action footage: buggy splashing water, mountain views, excited passengers. Hook in the first 2 seconds. Keep it 15–30 sec.',
+    pw: 500, ph: 888, ew: 1080, eh: 1920, label: 'REEL · 9:16'
+  },
+  carousel: {
+    tip: '<strong>🖼️ Carousel Mode</strong> — Best for <strong>saves &amp; bookings</strong>. Aim for <strong>8–10 slides</strong>. Slide 1 is your hook (only one visible in the feed). Tell a story: arrival → adventure → happy group → call to action.',
+    pw: 500, ph: 500, ew: 1080, eh: 1080, label: 'CAROUSEL · 1:1'
+  },
+  hybrid: {
+    tip: '<strong>⚡ Carousel Reel</strong> — The <strong>top format in 2026</strong>. 4× the reach AND engagement of a regular Reel. Instagram shows it in the Reels feed but users swipe through your slides. Use 5–8 photos with text.',
+    pw: 500, ph: 888, ew: 1080, eh: 1920, label: 'CAROUSEL REEL · 9:16'
+  }
+};
+const FPS = 25;
+const SECS_PER_SLIDE = 3;
+
+// ─── State ────────────────────────────────────────────────────────────────────
+let mode = 'carousel';
+let slides = [];
+let sel = 0;
+let imgCache = {};
+let dragFrom = null;
+let exporting = false;
+
+const canvas = document.getElementById('preview');
+const ctx = canvas.getContext('2d');
+
+// ─── Image Loading ────────────────────────────────────────────────────────────
+function loadImg(src) {
+  return new Promise((res, rej) => {
+    if (imgCache[src]) { res(imgCache[src]); return; }
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => { imgCache[src] = img; res(img); };
+    img.onerror = rej;
+    img.src = src;
+  });
+}
+
+// ─── Drawing ──────────────────────────────────────────────────────────────────
+function getTextXY(pos, w, h, pad) {
+  const [v, hz] = pos.split('-');
+  let x, y, align;
+  if (hz === 'left')       { x = pad;       align = 'left'; }
+  else if (hz === 'right') { x = w - pad;   align = 'right'; }
+  else                     { x = w / 2;     align = 'center'; }
+  if (v === 'top')         y = pad;
+  else if (v === 'bot')    y = h - pad;
+  else                     y = h / 2;
+  return { x, y, align };
+}
+
+function drawSlide(cx, img, slide, w, h) {
+  cx.fillStyle = '#0a0a14';
+  cx.fillRect(0, 0, w, h);
+
+  if (img) {
+    const ir = img.naturalWidth / img.naturalHeight;
+    const cr = w / h;
+    let sx, sy, sw, sh;
+    if (ir > cr) {
+      sh = img.naturalHeight; sw = sh * cr;
+      sx = (img.naturalWidth - sw) / 2; sy = 0;
+    } else {
+      sw = img.naturalWidth; sh = sw / cr;
+      sx = 0; sy = (img.naturalHeight - sh) / 2;
+    }
+    cx.drawImage(img, sx, sy, sw, sh, 0, 0, w, h);
+  }
+
+  const ov = slide.overlay;
+  if (!ov || !ov.text || !ov.text.trim()) return;
+
+  const scale = w / 500;
+  const fs = (ov.size || 36) * scale;
+  const pad = 30 * scale;
+  const { x, y, align } = getTextXY(ov.position || 'bot-center', w, h, pad);
+
+  cx.font = `bold ${fs}px 'Segoe UI', sans-serif`;
+  cx.textAlign = align;
+
+  // Word wrap
+  const maxW = w - pad * 2;
+  const words = ov.text.split(' ');
+  const lines = [];
+  let line = '';
+  for (const word of words) {
+    const test = line ? `${line} ${word}` : word;
+    if (cx.measureText(test).width > maxW && line) { lines.push(line); line = word; }
+    else line = test;
+  }
+  if (line) lines.push(line);
+
+  const lh = fs * 1.35;
+  const v = (ov.position || 'bot-center').split('-')[0];
+  let startY;
+  if (v === 'bot')      startY = y - lines.length * lh + lh;
+  else if (v === 'mid') startY = y - (lines.length * lh) / 2 + lh * 0.5;
+  else                  startY = y + lh * 0.8;
+
+  cx.shadowColor = 'rgba(0,0,0,0.9)';
+  cx.shadowBlur = 12 * scale;
+  cx.shadowOffsetX = 2 * scale;
+  cx.shadowOffsetY = 2 * scale;
+  cx.fillStyle = ov.color || '#ffffff';
+  cx.textBaseline = 'alphabetic';
+  lines.forEach((l, i) => cx.fillText(l, x, startY + i * lh));
+  cx.shadowColor = 'transparent';
+  cx.shadowBlur = 0; cx.shadowOffsetX = 0; cx.shadowOffsetY = 0;
+}
+
+async function redraw() {
+  const { pw: w, ph: h } = MODES[mode];
+  if (!slides.length) { ctx.clearRect(0, 0, w, h); return; }
+  const s = slides[sel];
+  try {
+    const img = await loadImg(s.src);
+    drawSlide(ctx, img, s, w, h);
+  } catch {
+    ctx.fillStyle = '#1a1a2a'; ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = '#555'; ctx.font = '13px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('Could not load image', w / 2, h / 2);
+    ctx.fillText('(CORS issue or invalid URL)', w / 2, h / 2 + 20);
+  }
+}
+
+// ─── Mode ─────────────────────────────────────────────────────────────────────
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
+  const cfg = MODES[m];
+  document.getElementById('stratTip').innerHTML = cfg.tip;
+  document.getElementById('canvasLabel').textContent = cfg.label;
+  canvas.width = cfg.pw;
+  canvas.height = cfg.ph;
+  canvas.style.maxWidth = cfg.pw + 'px';
+  renderSidebar();
+  redraw();
+}
+
+// ─── Sidebar Rendering ────────────────────────────────────────────────────────
+function renderSidebar() {
+  const list = document.getElementById('slideList');
+  const emptyLib = document.getElementById('emptyLib');
+  const countBar = document.getElementById('countBar');
+  const emptyState = document.getElementById('emptyState');
+
+  if (!slides.length) {
+    list.innerHTML = '';
+    list.appendChild(emptyLib);
+    emptyLib.style.display = 'block';
+    emptyState.style.display = 'flex';
+    countBar.style.display = 'none';
+    document.getElementById('dots').innerHTML = '';
+    setCtrlsEnabled(false);
+    return;
+  }
+
+  emptyState.style.display = 'none';
+  countBar.style.display = 'flex';
+  document.getElementById('countText').textContent = `${slides.length} slide${slides.length !== 1 ? 's' : ''}`;
+
+  const tip = document.getElementById('countTip');
+  if (mode === 'carousel') {
+    if (slides.length < 5)                                { tip.className = 'count-tip tip-low';  tip.textContent = 'Add more → aim 8–10'; }
+    else if (slides.length >= 8 && slides.length <= 10)   { tip.className = 'count-tip tip-good'; tip.textContent = '✓ Perfect count'; }
+    else if (slides.length > 10)                          { tip.className = 'count-tip tip-ok';   tip.textContent = 'Good · 8–10 is ideal'; }
+    else                                                  { tip.className = 'count-tip tip-ok';   tip.textContent = 'Getting there!'; }
+  } else if (mode === 'hybrid') {
+    const good = slides.length >= 5 && slides.length <= 8;
+    tip.className = good ? 'count-tip tip-good' : 'count-tip tip-ok';
+    tip.textContent = good ? '✓ Great for hybrid' : 'Aim for 5–8 slides';
+  } else {
+    tip.textContent = '';
+  }
+
+  list.innerHTML = '';
+  slides.forEach((s, i) => {
+    const el = document.createElement('div');
+    el.className = 'slide-item' + (i === sel ? ' sel' : '') + (i === 0 ? ' first-slide' : '');
+    el.draggable = true;
+    el.innerHTML = `
+      <span class="snum">${i + 1}</span>
+      <img class="sthumb" src="${s.src}" crossorigin="anonymous" onerror="this.style.background='#1a1a2a'">
+      <span class="sname">${s.name || 'slide ' + (i + 1)}</span>
+      <div class="sarrows">
+        <button class="sarrow" onclick="event.stopPropagation();moveSlide(${i},${i-1})">▲</button>
+        <button class="sarrow" onclick="event.stopPropagation();moveSlide(${i},${i+1})">▼</button>
+      </div>
+      <button class="sdel" onclick="event.stopPropagation();removeSlide(${i})">✕</button>`;
+    el.onclick = () => selectSlide(i);
+    el.ondragstart = () => { dragFrom = i; };
+    el.ondragover = e => { e.preventDefault(); el.classList.add('drop-hover'); };
+    el.ondragleave = () => el.classList.remove('drop-hover');
+    el.ondrop = () => {
+      el.classList.remove('drop-hover');
+      if (dragFrom !== null && dragFrom !== i) { moveSlide(dragFrom, i); dragFrom = null; }
+    };
+    list.appendChild(el);
+  });
+
+  // Dot nav
+  const dotsEl = document.getElementById('dots');
+  dotsEl.innerHTML = '';
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'dot';
+    d.style.width = i === sel ? '22px' : '7px';
+    d.style.background = i === sel ? '#ff6b35' : '#252538';
+    d.onclick = () => selectSlide(i);
+    dotsEl.appendChild(d);
+  });
+
+  setCtrlsEnabled(true);
+  syncCtrls();
+}
+
+function syncCtrls() {
+  const s = slides[sel];
+  if (!s) return;
+  document.getElementById('ovText').value = s.overlay.text || '';
+  document.getElementById('szSlider').value = s.overlay.size || 36;
+  document.getElementById('szLabel').textContent = 'Size: ' + (s.overlay.size || 36) + 'px';
+  document.getElementById('colorIn').value = s.overlay.color || '#ffffff';
+  document.querySelectorAll('.pos-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.p === (s.overlay.position || 'bot-center'))
+  );
+}
+
+function setCtrlsEnabled(on) {
+  ['ovText', 'szSlider', 'colorIn'].forEach(id => document.getElementById(id).disabled = !on);
+  ['btnCarousel', 'btnReel', 'btnHybrid'].forEach(id => document.getElementById(id).disabled = !on || exporting);
+}
+
+// ─── Slide Operations ─────────────────────────────────────────────────────────
+function selectSlide(i) {
+  sel = Math.max(0, Math.min(i, slides.length - 1));
+  renderSidebar();
+  redraw();
+}
+
+function addSlide(src, name) {
+  slides.push({
+    id: Date.now() + Math.random(),
+    src,
+    name: name.slice(0, 26),
+    overlay: { text: '', position: 'bot-center', size: 36, color: '#ffffff' }
+  });
+  sel = slides.length - 1;
+  renderSidebar();
+  redraw();
+}
+
+function removeSlide(i) {
+  slides.splice(i, 1);
+  sel = Math.max(0, Math.min(sel, slides.length - 1));
+  renderSidebar();
+  redraw();
+}
+
+function moveSlide(from, to) {
+  if (to < 0 || to >= slides.length) return;
+  const tmp = slides[from]; slides[from] = slides[to]; slides[to] = tmp;
+  sel = to;
+  renderSidebar();
+  redraw();
+}
+
+function handleFiles(files) {
+  Array.from(files).forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = e => addSlide(e.target.result, file.name);
+    reader.readAsDataURL(file);
+  });
+}
+
+function addUrl() {
+  const url = document.getElementById('urlInput').value.trim();
+  if (!url) return;
+  addSlide(url, url.split('/').pop().split('?')[0] || 'image');
+  document.getElementById('urlInput').value = '';
+}
+
+function updateOv(key, val) {
+  if (!slides[sel]) return;
+  slides[sel].overlay[key] = val;
+  redraw();
+}
+
+function setPos(p) {
+  updateOv('position', p);
+  document.querySelectorAll('.pos-btn').forEach(b => b.classList.toggle('active', b.dataset.p === p));
+}
+
+// ─── Export Helpers ───────────────────────────────────────────────────────────
+function setExpMsg(msg, prog, showProg) {
+  document.getElementById('expMsg').textContent = msg;
+  if (showProg !== undefined) document.getElementById('progWrap').style.display = showProg ? 'block' : 'none';
+  if (prog !== undefined) document.getElementById('progBar').style.width = prog + '%';
+}
+
+function setExporting(val) {
+  exporting = val;
+  setCtrlsEnabled(!val && slides.length > 0);
+}
+
+// ─── Export: Carousel (images) ────────────────────────────────────────────────
+async function exportCarousel() {
+  if (!slides.length || exporting) return;
+  setExporting(true);
+  const cfg = MODES[mode];
+  const w = cfg.ew, h = cfg.eh;
+  const scale = w / cfg.pw;
+
+  for (let i = 0; i < slides.length; i++) {
+    setExpMsg(`Exporting ${i + 1} of ${slides.length}...`, ((i + 1) / slides.length) * 100, true);
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    const cx = c.getContext('2d');
+    const s = slides[i];
+    const ss = { ...s, overlay: { ...s.overlay, size: (s.overlay.size || 36) * scale } };
+    try { const img = await loadImg(s.src); drawSlide(cx, img, ss, w, h); }
+    catch { drawSlide(cx, null, ss, w, h); }
+    await new Promise(res => c.toBlob(blob => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `slide_${String(i + 1).padStart(2, '0')}.jpg`;
+      a.click();
+      setTimeout(() => { URL.revokeObjectURL(a.href); res(); }, 400);
+    }, 'image/jpeg', 0.93));
+  }
+
+  setExporting(false);
+  setExpMsg(`✅ ${slides.length} images downloaded!`, 100, false);
+  setTimeout(() => setExpMsg('', undefined, false), 4000);
+}
+
+// ─── Export: Reel / Carousel Reel (video) ────────────────────────────────────
+async function exportReel(hybrid) {
+  if (!slides.length || exporting) return;
+  const mime = MediaRecorder.isTypeSupported('video/webm;codecs=vp9')
+    ? 'video/webm;codecs=vp9' : 'video/webm';
+
+  setExporting(true);
+  const cfg = MODES[mode];
+  const w = cfg.ew, h = cfg.eh;
+  const scale = w / cfg.pw;
+  const secsPerSlide = hybrid ? 2.5 : SECS_PER_SLIDE;
+
+  setExpMsg('Loading images...', 0, true);
+  const imgs = [];
+  for (const s of slides) {
+    try { imgs.push(await loadImg(s.src)); } catch { imgs.push(null); }
+  }
+
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  const cx = c.getContext('2d');
+
+  const stream = c.captureStream(FPS);
+  const recorder = new MediaRecorder(stream, { mimeType: mime });
+  const chunks = [];
+  recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+  recorder.onstop = () => {
+    const blob = new Blob(chunks, { type: 'video/webm' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = hybrid ? 'carousel_reel.webm' : 'reel.webm';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setExporting(false);
+    setExpMsg(`✅ ${hybrid ? 'Carousel Reel' : 'Reel'} downloaded! Convert to MP4 at cloudconvert.com`, 100, false);
+    setTimeout(() => setExpMsg('', undefined, false), 7000);
+  };
+
+  recorder.start();
+  const totalFrames = slides.length * secsPerSlide * FPS;
+  let frame = 0;
+
+  function renderFrame() {
+    const si = Math.floor(frame / (secsPerSlide * FPS));
+    if (si >= slides.length) { recorder.stop(); return; }
+    const s = slides[si];
+    const ss = { ...s, overlay: { ...s.overlay, size: (s.overlay.size || 36) * scale } };
+    drawSlide(cx, imgs[si], ss, w, h);
+
+    // Fade to black between slides
+    const prog = (frame % (secsPerSlide * FPS)) / (secsPerSlide * FPS);
+    if (prog > 0.85) {
+      const alpha = (prog - 0.85) / 0.15;
+      cx.fillStyle = `rgba(0,0,0,${alpha})`;
+      cx.fillRect(0, 0, w, h);
+    }
+
+    frame++;
+    const pct = Math.round((frame / totalFrames) * 100);
+    setExpMsg(`Rendering: ${pct}%`, pct, true);
+    if (frame < totalFrames) requestAnimationFrame(renderFrame);
+    else recorder.stop();
+  }
+  renderFrame();
+}
+
+// ─── AI Caption Generator ─────────────────────────────────────────────────────
+async function generateCaption() {
+  const topic = document.getElementById('topicInput').value.trim();
+  if (!topic) return;
+
+  const btn = document.getElementById('genBtn');
+  btn.disabled = true;
+  btn.textContent = '✨ Writing...';
+  document.getElementById('capOutWrap').style.display = 'block';
+  document.getElementById('capOut').value = 'Generating your caption...';
+
+  const modeHints = {
+    reel:     'This is a short Reel video. Make the hook punchy and action-focused for 15–30 seconds of content.',
+    carousel: 'This is a carousel post (swipeable photos). Subtly hint there are multiple photos to swipe through.',
+    hybrid:   'This is a Carousel Reel — a swipeable video in the Reels feed. Make it feel exciting and visual.'
+  };
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{
+          role: 'user',
+          content: `Write an Instagram caption for this post: "${topic}"\n\nBusiness: Extreme Leo Tours / Ambiorix Tours, Puerto Plata, Dominican Republic. Dune buggy & ATV adventures through jungle, rivers, and mountains.\nWebsite: ambiorixtours.com\nInstagram: @AmbiorixToursPOP\n\nPost format: ${modeHints[mode]}\n\nWrite:\n1. A punchy 1-line hook (make people stop scrolling — no opening emoji)\n2. 2-3 sentences describing the experience vividly and emotionally\n3. Call to action: Book at ambiorixtours.com or DM to reserve\n4. Blank line, then 20-25 relevant hashtags (Puerto Plata tourism, Dominican Republic travel, adventure tours, Caribbean travel)\n\nReady to copy-paste. No markdown. No surrounding quotes.`
+        }]
+      })
+    });
+    const data = await resp.json();
+    document.getElementById('capOut').value = data.content?.[0]?.text || 'Error — please try again';
+  } catch (err) {
+    document.getElementById('capOut').value = 'Error: ' + err.message;
+  }
+
+  btn.disabled = false;
+  btn.textContent = '✨ Generate Caption + Hashtags';
+}
+
+function copyCaption() {
+  const text = document.getElementById('capOut').value;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = '📋 Copy Caption', 2000);
+  });
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+setMode('carousel');
+</script>
+</body>
+</html>
