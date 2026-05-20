@@ -26,27 +26,28 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d0d16;color:#dde0e
 .right{background:#0f0f1c;border-left:1px solid #1e1e32;overflow-y:auto}
 .sec{padding:10px 13px;border-bottom:1px solid #1a1a28}
 .sec-label{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px;font-weight:600}
-.upload-btn{width:100%;padding:9px;background:#1b1b2e;border:1px dashed #2a2a44;border-radius:7px;color:#777;font-size:11px;cursor:pointer;margin-bottom:8px;transition:all .15s}
+.upload-btn{width:100%;padding:9px;background:#1b1b2e;border:1px dashed #2a2a44;border-radius:7px;color:#777;font-size:11px;cursor:pointer;margin-bottom:8px;transition:all .15s;text-align:center;display:block}
 .upload-btn:hover{border-color:#ff6b35;color:#ff9f6b}
 .url-row{display:flex;gap:5px}
-.url-in{flex:1;background:#1b1b2e;border:1px solid #2a2a40;border-radius:6px;padding:6px 8px;color:#dde0ee;font-size:11px;outline:none;transition:border-color .15s}
+.url-in{flex:1;background:#1b1b2e;border:1px solid #2a2a40;border-radius:6px;padding:6px 8px;color:#dde0ee;font-size:11px;outline:none}
 .url-in:focus{border-color:#ff6b35}
-.add-btn{background:#ff6b35;border:none;border-radius:6px;color:#fff;padding:6px 12px;font-weight:700;font-size:14px;cursor:pointer;transition:opacity .15s}
-.add-btn:hover{opacity:.85}
+.add-btn{background:#ff6b35;border:none;border-radius:6px;color:#fff;padding:6px 12px;font-weight:700;font-size:14px;cursor:pointer}
 .slide-list{flex:1;overflow-y:auto;padding:5px}
 .empty-lib{text-align:center;color:#2e2e44;padding:24px 0;font-size:11px;line-height:1.7}
 .slide-item{display:flex;align-items:center;gap:6px;padding:5px 7px;border-radius:7px;cursor:pointer;border:1px solid transparent;margin-bottom:3px;transition:all .15s;position:relative}
 .slide-item:hover{background:#181828}
 .slide-item.sel{background:#1c1c2e;border-color:#ff6b3444}
 .slide-item.drop-hover{border-color:#ff6b35;background:#1e160a}
-.slide-item.first-slide::after{content:'HOOK';position:absolute;top:4px;right:34px;font-size:8px;background:#ff6b3528;color:#ff9f6b;padding:1px 4px;border-radius:3px;font-weight:700;letter-spacing:.5px}
+.slide-item.first-slide::after{content:'HOOK';position:absolute;top:4px;right:34px;font-size:8px;background:#ff6b3528;color:#ff9f6b;padding:1px 4px;border-radius:3px;font-weight:700}
 .snum{font-size:9px;color:#444;min-width:13px;text-align:center}
-.sthumb{width:42px;height:42px;object-fit:cover;border-radius:5px;flex-shrink:0;background:#1a1a2a}
+.sthumb-wrap{position:relative;width:42px;height:42px;flex-shrink:0}
+.sthumb{width:42px;height:42px;object-fit:cover;border-radius:5px;background:#1a1a2a;display:block}
+.vid-badge{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#00000066;border-radius:5px;font-size:14px;pointer-events:none}
 .sname{flex:1;font-size:10px;color:#666;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sarrows{display:flex;flex-direction:column}
-.sarrow{background:none;border:none;color:#3a3a52;font-size:9px;line-height:1;padding:1px 4px;cursor:pointer;transition:color .1s}
+.sarrow{background:none;border:none;color:#3a3a52;font-size:9px;line-height:1;padding:1px 4px;cursor:pointer}
 .sarrow:hover{color:#aaa}
-.sdel{background:none;border:none;color:#5a2a2a;font-size:13px;padding:0 3px;cursor:pointer;transition:color .1s}
+.sdel{background:none;border:none;color:#5a2a2a;font-size:13px;padding:0 3px;cursor:pointer}
 .sdel:hover{color:#ff5555}
 .count-bar{padding:7px 12px;border-top:1px solid #1a1a28;font-size:10px;color:#444;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .count-tip{font-size:9px;padding:2px 6px;border-radius:4px;font-weight:600}
@@ -56,14 +57,15 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:#0d0d16;color:#dde0e
 .strat-tip{background:#12121e;border:1px solid #1e1e32;border-radius:8px;padding:8px 12px;max-width:490px;font-size:10px;line-height:1.6;color:#777}
 .strat-tip strong{color:#ff9f6b}
 .canvas-wrap{position:relative;flex-shrink:0}
-#preview{border-radius:10px;border:2px solid #1e1e30;display:block;background:#111;max-height:calc(100vh - 180px)}
+#preview{border-radius:10px;border:2px solid #1e1e30;display:block;background:#111;max-height:calc(100vh - 200px)}
 .canvas-label{position:absolute;top:8px;left:8px;background:#00000099;color:#888;font-size:9px;padding:3px 7px;border-radius:4px;font-weight:700;letter-spacing:.8px}
+.vid-preview-badge{position:absolute;top:8px;right:8px;background:#ff6b3599;color:#fff;font-size:9px;padding:3px 7px;border-radius:4px;font-weight:700;display:none}
 .empty-state{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:#2a2a3a;pointer-events:none;border-radius:10px}
 .empty-icon{font-size:44px}
 .empty-text{font-size:12px;color:#333}
 .dots{display:flex;gap:5px;align-items:center}
 .dot{height:7px;border-radius:4px;border:none;cursor:pointer;transition:all .2s;flex-shrink:0}
-.ov-textarea{width:100%;background:#1b1b2e;border:1px solid #2a2a40;border-radius:7px;padding:7px;color:#dde0ee;font-size:11px;resize:none;outline:none;line-height:1.5;transition:border-color .15s}
+.ov-textarea{width:100%;background:#1b1b2e;border:1px solid #2a2a40;border-radius:7px;padding:7px;color:#dde0ee;font-size:11px;resize:none;outline:none;line-height:1.5}
 .ov-textarea:focus{border-color:#ff6b35}
 .pos-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-top:7px}
 .pos-btn{padding:7px 3px;border-radius:5px;border:1px solid #2a2a40;cursor:pointer;font-size:9px;background:#1b1b2e;color:#666;transition:all .1s}
@@ -91,630 +93,332 @@ input[type=color]{width:100%;height:30px;border:none;border-radius:6px;cursor:po
 .prog-bar{height:3px;background:linear-gradient(90deg,#ff6b35,#ff9f6b);border-radius:3px;transition:width .1s}
 .convert-note{margin-top:8px;font-size:9px;color:#3a3a54;line-height:1.5}
 .convert-note a{color:#555;text-decoration:none}
-.convert-note a:hover{color:#888}
-.cap-input{width:100%;background:#1b1b2e;border:1px solid #2a2a40;border-radius:7px;padding:7px;color:#dde0ee;font-size:11px;outline:none;margin-bottom:8px;transition:border-color .15s}
+.music-row{display:none;align-items:center;gap:7px;margin-top:6px;padding:6px 9px;background:#1b1b2e;border:1px solid #2a2a40;border-radius:7px}
+.music-name{flex:1;font-size:10px;color:#777;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.music-clear{background:none;border:none;color:#5a2a2a;font-size:13px;cursor:pointer;padding:0 2px}
+.music-clear:hover{color:#ff5555}
+.toggle-row{display:flex;align-items:center;gap:8px;margin-top:8px}
+.toggle-row label{font-size:10px;color:#666;cursor:pointer}
+input[type=checkbox]{accent-color:#ff6b35;cursor:pointer}
+.cap-input{width:100%;background:#1b1b2e;border:1px solid #2a2a40;border-radius:7px;padding:7px;color:#dde0ee;font-size:11px;outline:none;margin-bottom:8px}
 .cap-input:focus{border-color:#4ade80}
-.gen-btn{width:100%;padding:10px;background:#0e1f14;border:1px solid #1a4a28;border-radius:8px;color:#4ade80;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s}
+.gen-btn{width:100%;padding:10px;background:#0e1f14;border:1px solid #1a4a28;border-radius:8px;color:#4ade80;font-size:11px;font-weight:600;cursor:pointer}
 .gen-btn:hover:not(:disabled){background:#122018}
 .gen-btn:disabled{opacity:.5;cursor:not-allowed}
 .cap-out-wrap{margin-top:8px;display:none}
 .cap-out{width:100%;background:#1b1b2e;border:1px solid #2a2a40;border-radius:7px;padding:7px;color:#b8bbd0;font-size:10px;resize:vertical;outline:none;line-height:1.7}
-.copy-btn{width:100%;padding:7px;background:#1b1b2e;border:1px solid #2a2a40;border-radius:6px;color:#666;font-size:10px;cursor:pointer;margin-top:5px;transition:all .15s}
-.copy-btn:hover{color:#ccc;border-color:#555}
+.copy-btn{width:100%;padding:7px;background:#1b1b2e;border:1px solid #2a2a40;border-radius:6px;color:#666;font-size:10px;cursor:pointer;margin-top:5px}
+.copy-btn:hover{color:#ccc}
 </style>
 </head>
 <body>
 <div class="app">
-
-  <!-- Header -->
   <div class="header">
     <span class="logo">🏎️ Tour Content Creator</span>
     <span class="header-sub">Extreme Leo / Ambiorix Tours &middot; Puerto Plata, Dominican Republic</span>
   </div>
-
-  <!-- Mode Selector -->
   <div class="mode-bar">
-    <button class="mode-btn" data-mode="reel" onclick="setMode('reel')">
-      <span class="mode-icon">🎬</span>Reel
-      <span class="mode-stat">9:16 vertical &middot; Reach new tourists</span>
-    </button>
-    <button class="mode-btn active" data-mode="carousel" onclick="setMode('carousel')">
-      <span class="mode-icon">🖼️</span>Carousel
-      <span class="mode-stat">1:1 square &middot; 8–10 slides &middot; High saves</span>
-    </button>
-    <button class="mode-btn" data-mode="hybrid" onclick="setMode('hybrid')">
-      <span class="mode-icon">⚡</span>Carousel Reel
-      <span class="mode-stat">9:16 &middot; 4× reach &amp; engagement &middot; Best pick</span>
-    </button>
+    <button class="mode-btn" data-mode="reel" onclick="setMode('reel')"><span class="mode-icon">🎬</span>Reel<span class="mode-stat">9:16 vertical &middot; Reach new tourists</span></button>
+    <button class="mode-btn active" data-mode="carousel" onclick="setMode('carousel')"><span class="mode-icon">🖼️</span>Carousel<span class="mode-stat">1:1 square &middot; 8–10 slides &middot; High saves</span></button>
+    <button class="mode-btn" data-mode="hybrid" onclick="setMode('hybrid')"><span class="mode-icon">⚡</span>Carousel Reel<span class="mode-stat">9:16 &middot; 4× reach &amp; engagement &middot; Best pick</span></button>
   </div>
-
-  <!-- Main Layout -->
   <div class="main">
-
-    <!-- LEFT: Media Library -->
     <div class="panel left">
       <div class="sec">
         <div class="sec-label">Add Media</div>
-        <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
-          📁 Upload Photos from Computer
-        </button>
-        <input id="fileInput" type="file" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
+        <button class="upload-btn" onclick="document.getElementById('fileInput').click()">📁 Upload Photos &amp; Videos</button>
+        <input id="fileInput" type="file" multiple accept="image/*,video/*" style="display:none" onchange="handleFiles(this.files)">
         <div class="url-row">
-          <input class="url-in" id="urlInput" placeholder="Paste Cloudinary or any image URL..." onkeydown="if(event.key==='Enter')addUrl()">
+          <input class="url-in" id="urlInput" placeholder="Paste image URL (Cloudinary etc)..." onkeydown="if(event.key==='Enter')addUrl()">
           <button class="add-btn" onclick="addUrl()">+</button>
         </div>
       </div>
-
       <div class="slide-list" id="slideList">
-        <div class="empty-lib" id="emptyLib">No slides yet<br><span style="font-size:10px;color:#252535">Upload photos or paste URLs above</span></div>
+        <div class="empty-lib" id="emptyLib">No slides yet<br><span style="font-size:10px;color:#252535">Upload photos/videos or paste URLs above</span></div>
       </div>
-
       <div class="count-bar" id="countBar" style="display:none">
-        <span id="countText"></span>
-        <span class="count-tip" id="countTip"></span>
+        <span id="countText"></span><span class="count-tip" id="countTip"></span>
       </div>
     </div>
-
-    <!-- CENTER: Preview Canvas -->
     <div class="panel center">
       <div class="strat-tip" id="stratTip"></div>
       <div class="canvas-wrap">
         <canvas id="preview"></canvas>
         <div class="canvas-label" id="canvasLabel"></div>
-        <div class="empty-state" id="emptyState">
-          <div class="empty-icon">🌴</div>
-          <div class="empty-text">Add photos to preview</div>
-        </div>
+        <div class="vid-preview-badge" id="vidBadge">&#9654; VIDEO</div>
+        <div class="empty-state" id="emptyState"><div class="empty-icon">🌴</div><div class="empty-text">Add photos or videos to preview</div></div>
       </div>
       <div class="dots" id="dots"></div>
     </div>
-
-    <!-- RIGHT: Controls -->
     <div class="panel right">
-
-      <!-- Text Overlay -->
       <div class="sec">
         <div class="sec-label">Slide Text Overlay</div>
         <textarea class="ov-textarea" id="ovText" rows="3" placeholder="Add text to this slide..." oninput="updateOv('text',this.value)" disabled></textarea>
         <div class="sec-label" style="margin-top:10px">Position</div>
         <div class="pos-grid">
-          <button class="pos-btn" data-p="top-left"    onclick="setPos('top-left')"   >↖ Top L</button>
-          <button class="pos-btn" data-p="top-center"  onclick="setPos('top-center')" >↑ Top C</button>
-          <button class="pos-btn" data-p="top-right"   onclick="setPos('top-right')"  >↗ Top R</button>
-          <button class="pos-btn" data-p="mid-left"    onclick="setPos('mid-left')"   >← Mid L</button>
-          <button class="pos-btn active" data-p="mid-center" onclick="setPos('mid-center')">• Center</button>
-          <button class="pos-btn" data-p="mid-right"   onclick="setPos('mid-right')"  >→ Mid R</button>
-          <button class="pos-btn" data-p="bot-left"    onclick="setPos('bot-left')"   >↙ Bot L</button>
-          <button class="pos-btn" data-p="bot-center"  onclick="setPos('bot-center')" >↓ Bot C</button>
-          <button class="pos-btn" data-p="bot-right"   onclick="setPos('bot-right')"  >↘ Bot R</button>
+          <button class="pos-btn" data-p="top-left"   onclick="setPos('top-left')"  >&#8598; Top L</button>
+          <button class="pos-btn" data-p="top-center" onclick="setPos('top-center')">&#8593; Top C</button>
+          <button class="pos-btn" data-p="top-right"  onclick="setPos('top-right')" >&#8599; Top R</button>
+          <button class="pos-btn" data-p="mid-left"   onclick="setPos('mid-left')"  >&#8592; Mid L</button>
+          <button class="pos-btn active" data-p="mid-center" onclick="setPos('mid-center')">&#8226; Center</button>
+          <button class="pos-btn" data-p="mid-right"  onclick="setPos('mid-right')" >&#8594; Mid R</button>
+          <button class="pos-btn" data-p="bot-left"   onclick="setPos('bot-left')"  >&#8601; Bot L</button>
+          <button class="pos-btn" data-p="bot-center" onclick="setPos('bot-center')">&#8595; Bot C</button>
+          <button class="pos-btn" data-p="bot-right"  onclick="setPos('bot-right')" >&#8600; Bot R</button>
         </div>
         <div class="row2">
-          <div>
-            <div class="small-label" id="szLabel">Size: 36px</div>
-            <input type="range" min="16" max="72" value="36" id="szSlider"
-              oninput="updateOv('size',parseInt(this.value));document.getElementById('szLabel').textContent='Size: '+this.value+'px'" disabled>
-          </div>
-          <div>
-            <div class="small-label">Text Color</div>
-            <input type="color" id="colorIn" value="#ffffff" oninput="updateOv('color',this.value)" disabled>
-          </div>
+          <div><div class="small-label" id="szLabel">Size: 36px</div><input type="range" min="16" max="72" value="36" id="szSlider" oninput="updateOv('size',parseInt(this.value));document.getElementById('szLabel').textContent='Size: '+this.value+'px'" disabled></div>
+          <div><div class="small-label">Text Color</div><input type="color" id="colorIn" value="#ffffff" oninput="updateOv('color',this.value)" disabled></div>
         </div>
       </div>
-
-      <!-- Export -->
       <div class="sec">
         <div class="sec-label">Export</div>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
           <span style="font-size:10px;color:#555;white-space:nowrap">Slide duration</span>
-          <input type="range" min="2" max="10" value="5" step="1" id="durationSlider"
-            oninput="SECS_PER_SLIDE=parseInt(this.value);document.getElementById('durationVal').textContent=this.value+'s'"
-            style="flex:1;accent-color:#ff6b35">
+          <input type="range" min="2" max="10" value="5" step="1" id="durationSlider" oninput="SECS_PER_SLIDE=parseInt(this.value);document.getElementById('durationVal').textContent=this.value+'s'" style="flex:1;accent-color:#ff6b35">
           <span id="durationVal" style="font-size:11px;color:#ff9f6b;min-width:24px">5s</span>
+        </div>
+        <div style="margin-bottom:10px">
+          <div class="small-label">Background Music (optional)</div>
+          <button class="upload-btn" style="margin-bottom:4px" onclick="document.getElementById('musicInput').click()">🎵 Upload Music File (MP3, M4A, WAV...)</button>
+          <input id="musicInput" type="file" accept="audio/*" style="display:none" onchange="handleMusic(this.files[0])">
+          <div id="musicRow" class="music-row">
+            <span>🎵</span>
+            <span class="music-name" id="musicName"></span>
+            <button class="music-clear" onclick="clearMusic()" title="Remove">&#10005;</button>
+          </div>
+          <div class="toggle-row">
+            <input type="checkbox" id="muteVideos" checked>
+            <label for="muteVideos">Mute original video audio (use music only)</label>
+          </div>
         </div>
         <div class="export-group">
           <button class="exp-btn exp-carousel" id="btnCarousel" onclick="exportCarousel()" disabled>
             <span class="exp-icon">🖼️</span>
-            <span class="exp-info">
-              <span class="exp-name">Download Carousel Images</span>
-              <span class="exp-desc">1080×1080 JPGs &middot; upload directly to Instagram</span>
-            </span>
+            <span class="exp-info"><span class="exp-name">Download Carousel Images</span><span class="exp-desc">1080×1080 JPGs &middot; upload directly to Instagram</span></span>
           </button>
           <button class="exp-btn exp-reel" id="btnReel" onclick="exportReel(false)" disabled>
             <span class="exp-icon">🎬</span>
-            <span class="exp-info">
-              <span class="exp-name">Export Reel Video</span>
-              <span class="exp-desc">1080×1920 &middot; 9:16 vertical &middot; for Instagram Reels tab</span>
-            </span>
+            <span class="exp-info"><span class="exp-name">Export Reel Video</span><span class="exp-desc">1080×1920 &middot; 9:16 vertical &middot; for Instagram Reels tab</span></span>
           </button>
           <button class="exp-btn exp-hybrid" id="btnHybrid" onclick="exportReel(true)" disabled>
             <span class="exp-icon">⚡</span>
-            <span class="exp-info">
-              <span class="exp-name">Export Carousel Reel</span>
-              <span class="exp-desc">Best format in 2026 &middot; 4× reach &amp; engagement</span>
-            </span>
+            <span class="exp-info"><span class="exp-name">Export Carousel Reel</span><span class="exp-desc">Best format in 2026 &middot; 4× reach &amp; engagement</span></span>
           </button>
         </div>
         <div class="exp-msg" id="expMsg"></div>
         <div class="prog-wrap" id="progWrap"><div class="prog-bar" id="progBar" style="width:0%"></div></div>
-        <div class="convert-note">
-          Video exports as .webm — convert free to MP4 at <a href="https://cloudconvert.com" target="_blank">cloudconvert.com</a> before uploading to IG or YouTube.
-        </div>
+        <div class="convert-note">Video exports as .webm — convert free to MP4 at <a href="https://cloudconvert.com" target="_blank">cloudconvert.com</a> before uploading to IG or YouTube.</div>
       </div>
-
-      <!-- AI Caption Generator -->
       <div class="sec" style="border-bottom:none;padding-bottom:20px">
         <div class="sec-label">AI Caption + Hashtags</div>
-        <input class="cap-input" id="topicInput" placeholder="Describe the post content..."
-          value="Dune buggy tour through jungle and mountains, Puerto Plata DR — epic off-road adventure with an amazing group">
-        <button class="gen-btn" id="genBtn" onclick="generateCaption()">✨ Generate Caption + Hashtags</button>
+        <input class="cap-input" id="topicInput" placeholder="Describe the post content..." value="Horseback riding on the beach in Puerto Plata, Dominican Republic — beautiful ocean views, happy group, unforgettable experience">
+        <button class="gen-btn" id="genBtn" onclick="generateCaption()">&#10024; Generate Caption + Hashtags</button>
         <div class="cap-out-wrap" id="capOutWrap">
           <textarea class="cap-out" id="capOut" rows="13"></textarea>
           <button class="copy-btn" onclick="copyCaption()">📋 Copy Caption</button>
         </div>
       </div>
-
     </div>
   </div>
 </div>
-
 <script>
-// ─── Config ───────────────────────────────────────────────────────────────────
-const MODES = {
-  reel: {
-    tip: '<strong>🎬 Reel Mode</strong> — Best for reaching <strong>new tourists</strong> who don\'t follow you yet. Use action footage: buggy splashing water, mountain views, excited passengers. Hook in the first 2 seconds. Keep it 15–30 sec.',
-    pw: 500, ph: 888, ew: 1080, eh: 1920, label: 'REEL · 9:16'
-  },
-  carousel: {
-    tip: '<strong>🖼️ Carousel Mode</strong> — Best for <strong>saves &amp; bookings</strong>. Aim for <strong>8–10 slides</strong>. Slide 1 is your hook (only one visible in the feed). Tell a story: arrival → adventure → happy group → call to action.',
-    pw: 500, ph: 500, ew: 1080, eh: 1080, label: 'CAROUSEL · 1:1'
-  },
-  hybrid: {
-    tip: '<strong>⚡ Carousel Reel</strong> — The <strong>top format in 2026</strong>. 4× the reach AND engagement of a regular Reel. Instagram shows it in the Reels feed but users swipe through your slides. Use 5–8 photos with text.',
-    pw: 500, ph: 888, ew: 1080, eh: 1920, label: 'CAROUSEL REEL · 9:16'
-  }
+const MODES={
+  reel:    {tip:'<strong>🎬 Reel Mode</strong> — Best for reaching <strong>new tourists</strong>. Use action footage: horses on beach, buggy splashing water, excited passengers. Hook in the first 2 seconds.',pw:500,ph:888,ew:1080,eh:1920,label:'REEL · 9:16'},
+  carousel:{tip:'<strong>🖼️ Carousel Mode</strong> — Best for <strong>saves &amp; bookings</strong>. Aim for <strong>8–10 slides</strong>. Slide 1 is your hook. Tell a story: arrival → adventure → happy group → call to action.',pw:500,ph:500,ew:1080,eh:1080,label:'CAROUSEL · 1:1'},
+  hybrid:  {tip:'<strong>⚡ Carousel Reel</strong> — The <strong>top format in 2026</strong>. 4× the reach AND engagement of a regular Reel. Instagram shows it in Reels but users swipe through your slides. Use 5–8 photos/videos.',pw:500,ph:888,ew:1080,eh:1920,label:'CAROUSEL REEL · 9:16'}
 };
-const FPS = 25;
-let SECS_PER_SLIDE = 5;
+const FPS=25;
+let SECS_PER_SLIDE=5;
+let mode='carousel',slides=[],sel=0,imgCache={},vidCache={},dragFrom=null,exporting=false;
+let musicObjectUrl=null,musicFileName='';
+let previewAnimId=null,previewVid=null;
+const canvas=document.getElementById('preview');
+const ctx=canvas.getContext('2d');
 
-// ─── State ────────────────────────────────────────────────────────────────────
-let mode = 'carousel';
-let slides = [];
-let sel = 0;
-let imgCache = {};
-let dragFrom = null;
-let exporting = false;
+function loadImg(src){return new Promise((res,rej)=>{if(imgCache[src]){res(imgCache[src]);return;}const img=new Image();img.crossOrigin='anonymous';img.onload=()=>{imgCache[src]=img;res(img);};img.onerror=rej;img.src=src;});}
+function loadVid(src){return new Promise((res,rej)=>{if(vidCache[src]){res(vidCache[src]);return;}const vid=document.createElement('video');vid.crossOrigin='anonymous';vid.preload='auto';vid.playsInline=true;vid.src=src;vid.onloadeddata=()=>{vidCache[src]=vid;res(vid);};vid.onerror=rej;});}
+function getVideoThumbnail(src){return new Promise(res=>{const vid=document.createElement('video');vid.src=src;vid.playsInline=true;vid.currentTime=0.5;vid.onloadeddata=()=>{const c=document.createElement('canvas');c.width=120;c.height=120;const cx=c.getContext('2d');const ir=vid.videoWidth/vid.videoHeight;let sx=0,sy=0,sw=vid.videoWidth,sh=vid.videoHeight;if(ir>1){sw=sh;sx=(vid.videoWidth-sw)/2;}else{sh=sw;sy=(vid.videoHeight-sh)/2;}cx.drawImage(vid,sx,sy,sw,sh,0,0,120,120);res(c.toDataURL());};vid.onerror=()=>res('');});}
 
-const canvas = document.getElementById('preview');
-const ctx = canvas.getContext('2d');
+function getTextXY(pos,w,h,pad){const[v,hz]=pos.split('-');let x,y,align;if(hz==='left'){x=pad;align='left';}else if(hz==='right'){x=w-pad;align='right';}else{x=w/2;align='center';}if(v==='top')y=pad;else if(v==='bot')y=h-pad;else y=h/2;return{x,y,align};}
 
-// ─── Image Loading ────────────────────────────────────────────────────────────
-function loadImg(src) {
-  return new Promise((res, rej) => {
-    if (imgCache[src]) { res(imgCache[src]); return; }
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => { imgCache[src] = img; res(img); };
-    img.onerror = rej;
-    img.src = src;
-  });
-}
-
-// ─── Drawing ──────────────────────────────────────────────────────────────────
-function getTextXY(pos, w, h, pad) {
-  const [v, hz] = pos.split('-');
-  let x, y, align;
-  if (hz === 'left')       { x = pad;       align = 'left'; }
-  else if (hz === 'right') { x = w - pad;   align = 'right'; }
-  else                     { x = w / 2;     align = 'center'; }
-  if (v === 'top')         y = pad;
-  else if (v === 'bot')    y = h - pad;
-  else                     y = h / 2;
-  return { x, y, align };
-}
-
-function drawSlide(cx, img, slide, w, h) {
-  cx.fillStyle = '#0a0a14';
-  cx.fillRect(0, 0, w, h);
-
-  if (img) {
-    const ir = img.naturalWidth / img.naturalHeight;
-    const cr = w / h;
-    let sx, sy, sw, sh;
-    if (ir > cr) {
-      sh = img.naturalHeight; sw = sh * cr;
-      sx = (img.naturalWidth - sw) / 2; sy = 0;
-    } else {
-      sw = img.naturalWidth; sh = sw / cr;
-      sx = 0; sy = (img.naturalHeight - sh) / 2;
-    }
-    cx.drawImage(img, sx, sy, sw, sh, 0, 0, w, h);
+function drawSlide(cx,media,slide,w,h){
+  cx.fillStyle='#0a0a14';cx.fillRect(0,0,w,h);
+  if(media){
+    const mw=media.naturalWidth||media.videoWidth||w;
+    const mh=media.naturalHeight||media.videoHeight||h;
+    const ir=mw/mh,cr=w/h;
+    let sx,sy,sw,sh;
+    if(ir>cr){sh=mh;sw=sh*cr;sx=(mw-sw)/2;sy=0;}else{sw=mw;sh=sw/cr;sx=0;sy=(mh-sh)/2;}
+    cx.drawImage(media,sx,sy,sw,sh,0,0,w,h);
   }
-
-  const ov = slide.overlay;
-  if (!ov || !ov.text || !ov.text.trim()) return;
-
-  const scale = w / 500;
-  const fs = (ov.size || 36) * scale;
-  const pad = 30 * scale;
-  const { x, y, align } = getTextXY(ov.position || 'bot-center', w, h, pad);
-
-  cx.font = `bold ${fs}px 'Segoe UI', sans-serif`;
-  cx.textAlign = align;
-
-  // Word wrap
-  const maxW = w - pad * 2;
-  const words = ov.text.split(' ');
-  const lines = [];
-  let line = '';
-  for (const word of words) {
-    const test = line ? `${line} ${word}` : word;
-    if (cx.measureText(test).width > maxW && line) { lines.push(line); line = word; }
-    else line = test;
-  }
-  if (line) lines.push(line);
-
-  const lh = fs * 1.35;
-  const v = (ov.position || 'bot-center').split('-')[0];
+  const ov=slide.overlay;
+  if(!ov||!ov.text||!ov.text.trim())return;
+  const scale=w/500,fs=(ov.size||36)*scale,pad=30*scale;
+  const{x,y,align}=getTextXY(ov.position||'bot-center',w,h,pad);
+  cx.font='bold '+fs+'px \'Segoe UI\',sans-serif';cx.textAlign=align;
+  const maxW=w-pad*2,words=ov.text.split(' '),lines=[];let line='';
+  for(const word of words){const test=line?line+' '+word:word;if(cx.measureText(test).width>maxW&&line){lines.push(line);line=word;}else line=test;}
+  if(line)lines.push(line);
+  const lh=fs*1.35,v2=(ov.position||'bot-center').split('-')[0];
   let startY;
-  if (v === 'bot')      startY = y - lines.length * lh + lh;
-  else if (v === 'mid') startY = y - (lines.length * lh) / 2 + lh * 0.5;
-  else                  startY = y + lh * 0.8;
-
-  cx.shadowColor = 'rgba(0,0,0,0.9)';
-  cx.shadowBlur = 12 * scale;
-  cx.shadowOffsetX = 2 * scale;
-  cx.shadowOffsetY = 2 * scale;
-  cx.fillStyle = ov.color || '#ffffff';
-  cx.textBaseline = 'alphabetic';
-  lines.forEach((l, i) => cx.fillText(l, x, startY + i * lh));
-  cx.shadowColor = 'transparent';
-  cx.shadowBlur = 0; cx.shadowOffsetX = 0; cx.shadowOffsetY = 0;
+  if(v2==='bot')startY=y-lines.length*lh+lh;else if(v2==='mid')startY=y-(lines.length*lh)/2+lh*0.5;else startY=y+lh*0.8;
+  cx.shadowColor='rgba(0,0,0,0.9)';cx.shadowBlur=12*scale;cx.shadowOffsetX=2*scale;cx.shadowOffsetY=2*scale;
+  cx.fillStyle=ov.color||'#ffffff';cx.textBaseline='alphabetic';
+  lines.forEach((l,i)=>cx.fillText(l,x,startY+i*lh));
+  cx.shadowColor='transparent';cx.shadowBlur=0;cx.shadowOffsetX=0;cx.shadowOffsetY=0;
 }
 
-async function redraw() {
-  const { pw: w, ph: h } = MODES[mode];
-  if (!slides.length) { ctx.clearRect(0, 0, w, h); return; }
-  const s = slides[sel];
-  try {
-    const img = await loadImg(s.src);
-    drawSlide(ctx, img, s, w, h);
-  } catch {
-    ctx.fillStyle = '#1a1a2a'; ctx.fillRect(0, 0, w, h);
-    ctx.fillStyle = '#555'; ctx.font = '13px sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText('Could not load image', w / 2, h / 2);
-    ctx.fillText('(CORS issue or invalid URL)', w / 2, h / 2 + 20);
+function stopPreviewAnim(){if(previewAnimId){cancelAnimationFrame(previewAnimId);previewAnimId=null;}if(previewVid){previewVid.pause();previewVid.currentTime=0;previewVid=null;}}
+
+async function redraw(){
+  stopPreviewAnim();
+  const{pw:w,ph:h}=MODES[mode];
+  const badge=document.getElementById('vidBadge');
+  if(!slides.length){ctx.clearRect(0,0,w,h);badge.style.display='none';return;}
+  const s=slides[sel];
+  if(s.type==='video'){
+    badge.style.display='block';
+    try{
+      const vid=await loadVid(s.src);
+      vid.muted=true;vid.loop=true;vid.currentTime=0;
+      vid.play().catch(()=>{});
+      previewVid=vid;
+      function animLoop(){drawSlide(ctx,vid,s,w,h);previewAnimId=requestAnimationFrame(animLoop);}
+      animLoop();
+    }catch{ctx.fillStyle='#1a1a2a';ctx.fillRect(0,0,w,h);ctx.fillStyle='#555';ctx.font='13px sans-serif';ctx.textAlign='center';ctx.fillText('Could not load video',w/2,h/2);}
+  }else{
+    badge.style.display='none';
+    try{const img=await loadImg(s.src);drawSlide(ctx,img,s,w,h);}
+    catch{ctx.fillStyle='#1a1a2a';ctx.fillRect(0,0,w,h);ctx.fillStyle='#555';ctx.font='13px sans-serif';ctx.textAlign='center';ctx.fillText('Could not load image',w/2,h/2);ctx.fillText('(CORS issue or invalid URL)',w/2,h/2+20);}
   }
 }
 
-// ─── Mode ─────────────────────────────────────────────────────────────────────
-function setMode(m) {
-  mode = m;
-  document.querySelectorAll('.mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === m));
-  const cfg = MODES[m];
-  document.getElementById('stratTip').innerHTML = cfg.tip;
-  document.getElementById('canvasLabel').textContent = cfg.label;
-  canvas.width = cfg.pw;
-  canvas.height = cfg.ph;
-  canvas.style.maxWidth = cfg.pw + 'px';
-  renderSidebar();
-  redraw();
-}
+function setMode(m){mode=m;document.querySelectorAll('.mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));const cfg=MODES[m];document.getElementById('stratTip').innerHTML=cfg.tip;document.getElementById('canvasLabel').textContent=cfg.label;canvas.width=cfg.pw;canvas.height=cfg.ph;canvas.style.maxWidth=cfg.pw+'px';renderSidebar();redraw();}
 
-// ─── Sidebar Rendering ────────────────────────────────────────────────────────
-function renderSidebar() {
-  const list = document.getElementById('slideList');
-  const emptyLib = document.getElementById('emptyLib');
-  const countBar = document.getElementById('countBar');
-  const emptyState = document.getElementById('emptyState');
-
-  if (!slides.length) {
-    list.innerHTML = '';
-    list.appendChild(emptyLib);
-    emptyLib.style.display = 'block';
-    emptyState.style.display = 'flex';
-    countBar.style.display = 'none';
-    document.getElementById('dots').innerHTML = '';
-    setCtrlsEnabled(false);
-    return;
-  }
-
-  emptyState.style.display = 'none';
-  countBar.style.display = 'flex';
-  document.getElementById('countText').textContent = `${slides.length} slide${slides.length !== 1 ? 's' : ''}`;
-
-  const tip = document.getElementById('countTip');
-  if (mode === 'carousel') {
-    if (slides.length < 5)                                { tip.className = 'count-tip tip-low';  tip.textContent = 'Add more → aim 8–10'; }
-    else if (slides.length >= 8 && slides.length <= 10)   { tip.className = 'count-tip tip-good'; tip.textContent = '✓ Perfect count'; }
-    else if (slides.length > 10)                          { tip.className = 'count-tip tip-ok';   tip.textContent = 'Good · 8–10 is ideal'; }
-    else                                                  { tip.className = 'count-tip tip-ok';   tip.textContent = 'Getting there!'; }
-  } else if (mode === 'hybrid') {
-    const good = slides.length >= 5 && slides.length <= 8;
-    tip.className = good ? 'count-tip tip-good' : 'count-tip tip-ok';
-    tip.textContent = good ? '✓ Great for hybrid' : 'Aim for 5–8 slides';
-  } else {
-    tip.textContent = '';
-  }
-
-  list.innerHTML = '';
-  slides.forEach((s, i) => {
-    const el = document.createElement('div');
-    el.className = 'slide-item' + (i === sel ? ' sel' : '') + (i === 0 ? ' first-slide' : '');
-    el.draggable = true;
-    el.innerHTML = `
-      <span class="snum">${i + 1}</span>
-      <img class="sthumb" src="${s.src}" crossorigin="anonymous" onerror="this.style.background='#1a1a2a'">
-      <span class="sname">${s.name || 'slide ' + (i + 1)}</span>
-      <div class="sarrows">
-        <button class="sarrow" onclick="event.stopPropagation();moveSlide(${i},${i-1})">▲</button>
-        <button class="sarrow" onclick="event.stopPropagation();moveSlide(${i},${i+1})">▼</button>
-      </div>
-      <button class="sdel" onclick="event.stopPropagation();removeSlide(${i})">✕</button>`;
-    el.onclick = () => selectSlide(i);
-    el.ondragstart = () => { dragFrom = i; };
-    el.ondragover = e => { e.preventDefault(); el.classList.add('drop-hover'); };
-    el.ondragleave = () => el.classList.remove('drop-hover');
-    el.ondrop = () => {
-      el.classList.remove('drop-hover');
-      if (dragFrom !== null && dragFrom !== i) { moveSlide(dragFrom, i); dragFrom = null; }
-    };
+function renderSidebar(){
+  const list=document.getElementById('slideList'),emptyLib=document.getElementById('emptyLib'),countBar=document.getElementById('countBar'),emptyState=document.getElementById('emptyState');
+  if(!slides.length){list.innerHTML='';list.appendChild(emptyLib);emptyLib.style.display='block';emptyState.style.display='flex';countBar.style.display='none';document.getElementById('dots').innerHTML='';setCtrlsEnabled(false);return;}
+  emptyState.style.display='none';countBar.style.display='flex';
+  document.getElementById('countText').textContent=slides.length+' slide'+(slides.length!==1?'s':'');
+  const tip=document.getElementById('countTip');
+  if(mode==='carousel'){if(slides.length<5){tip.className='count-tip tip-low';tip.textContent='Add more \u2192 aim 8\u201310';}else if(slides.length>=8&&slides.length<=10){tip.className='count-tip tip-good';tip.textContent='\u2713 Perfect count';}else if(slides.length>10){tip.className='count-tip tip-ok';tip.textContent='Good \u00b7 8\u201310 is ideal';}else{tip.className='count-tip tip-ok';tip.textContent='Getting there!';}}else if(mode==='hybrid'){const good=slides.length>=5&&slides.length<=8;tip.className=good?'count-tip tip-good':'count-tip tip-ok';tip.textContent=good?'\u2713 Great for hybrid':'Aim for 5\u20138 slides';}else{tip.textContent='';}
+  list.innerHTML='';
+  slides.forEach((s,i)=>{
+    const el=document.createElement('div');
+    el.className='slide-item'+(i===sel?' sel':'')+(i===0?' first-slide':'');
+    el.draggable=true;
+    const thumbSrc=s.thumbnail||s.src;
+    el.innerHTML='<span class="snum">'+(i+1)+'</span><div class="sthumb-wrap"><img class="sthumb" src="'+thumbSrc+'" onerror="this.style.background=\'#1a1a2a\'">'+(s.type==='video'?'<div class="vid-badge">\u25B6</div>':'')+'</div><span class="sname">'+(s.name||'slide '+(i+1))+'</span><div class="sarrows"><button class="sarrow" onclick="event.stopPropagation();moveSlide('+i+','+(i-1)+')">&#9650;</button><button class="sarrow" onclick="event.stopPropagation();moveSlide('+i+','+(i+1)+')">&#9660;</button></div><button class="sdel" onclick="event.stopPropagation();removeSlide('+i+')">&#10005;</button>';
+    el.onclick=()=>selectSlide(i);
+    el.ondragstart=()=>{dragFrom=i;};
+    el.ondragover=e=>{e.preventDefault();el.classList.add('drop-hover');};
+    el.ondragleave=()=>el.classList.remove('drop-hover');
+    el.ondrop=()=>{el.classList.remove('drop-hover');if(dragFrom!==null&&dragFrom!==i){moveSlide(dragFrom,i);dragFrom=null;}};
     list.appendChild(el);
   });
-
-  // Dot nav
-  const dotsEl = document.getElementById('dots');
-  dotsEl.innerHTML = '';
-  slides.forEach((_, i) => {
-    const d = document.createElement('button');
-    d.className = 'dot';
-    d.style.width = i === sel ? '22px' : '7px';
-    d.style.background = i === sel ? '#ff6b35' : '#252538';
-    d.onclick = () => selectSlide(i);
-    dotsEl.appendChild(d);
-  });
-
-  setCtrlsEnabled(true);
-  syncCtrls();
+  const dotsEl=document.getElementById('dots');dotsEl.innerHTML='';
+  slides.forEach((_,i)=>{const d=document.createElement('button');d.className='dot';d.style.width=i===sel?'22px':'7px';d.style.background=i===sel?'#ff6b35':'#252538';d.onclick=()=>selectSlide(i);dotsEl.appendChild(d);});
+  setCtrlsEnabled(true);syncCtrls();
 }
 
-function syncCtrls() {
-  const s = slides[sel];
-  if (!s) return;
-  document.getElementById('ovText').value = s.overlay.text || '';
-  document.getElementById('szSlider').value = s.overlay.size || 36;
-  document.getElementById('szLabel').textContent = 'Size: ' + (s.overlay.size || 36) + 'px';
-  document.getElementById('colorIn').value = s.overlay.color || '#ffffff';
-  document.querySelectorAll('.pos-btn').forEach(b =>
-    b.classList.toggle('active', b.dataset.p === (s.overlay.position || 'bot-center'))
-  );
-}
+function syncCtrls(){const s=slides[sel];if(!s)return;document.getElementById('ovText').value=s.overlay.text||'';document.getElementById('szSlider').value=s.overlay.size||36;document.getElementById('szLabel').textContent='Size: '+(s.overlay.size||36)+'px';document.getElementById('colorIn').value=s.overlay.color||'#ffffff';document.querySelectorAll('.pos-btn').forEach(b=>b.classList.toggle('active',b.dataset.p===(s.overlay.position||'bot-center')));}
+function setCtrlsEnabled(on){['ovText','szSlider','colorIn'].forEach(id=>document.getElementById(id).disabled=!on);['btnCarousel','btnReel','btnHybrid'].forEach(id=>document.getElementById(id).disabled=!on||exporting);}
+function selectSlide(i){sel=Math.max(0,Math.min(i,slides.length-1));renderSidebar();redraw();}
+function addSlide(src,name,type,thumbnail){slides.push({id:Date.now()+Math.random(),src,name:name.slice(0,26),type:type||'image',thumbnail:thumbnail||null,overlay:{text:'',position:'bot-center',size:36,color:'#ffffff'}});sel=slides.length-1;renderSidebar();redraw();}
+function removeSlide(i){stopPreviewAnim();slides.splice(i,1);sel=Math.max(0,Math.min(sel,slides.length-1));renderSidebar();redraw();}
+function moveSlide(from,to){if(to<0||to>=slides.length)return;const tmp=slides[from];slides[from]=slides[to];slides[to]=tmp;sel=to;renderSidebar();redraw();}
 
-function setCtrlsEnabled(on) {
-  ['ovText', 'szSlider', 'colorIn'].forEach(id => document.getElementById(id).disabled = !on);
-  ['btnCarousel', 'btnReel', 'btnHybrid'].forEach(id => document.getElementById(id).disabled = !on || exporting);
-}
-
-// ─── Slide Operations ─────────────────────────────────────────────────────────
-function selectSlide(i) {
-  sel = Math.max(0, Math.min(i, slides.length - 1));
-  renderSidebar();
-  redraw();
-}
-
-function addSlide(src, name) {
-  slides.push({
-    id: Date.now() + Math.random(),
-    src,
-    name: name.slice(0, 26),
-    overlay: { text: '', position: 'bot-center', size: 36, color: '#ffffff' }
-  });
-  sel = slides.length - 1;
-  renderSidebar();
-  redraw();
-}
-
-function removeSlide(i) {
-  slides.splice(i, 1);
-  sel = Math.max(0, Math.min(sel, slides.length - 1));
-  renderSidebar();
-  redraw();
-}
-
-function moveSlide(from, to) {
-  if (to < 0 || to >= slides.length) return;
-  const tmp = slides[from]; slides[from] = slides[to]; slides[to] = tmp;
-  sel = to;
-  renderSidebar();
-  redraw();
-}
-
-function handleFiles(files) {
-  Array.from(files).forEach(file => {
-    if (!file.type.startsWith('image/')) return;
-    const reader = new FileReader();
-    reader.onload = e => addSlide(e.target.result, file.name);
-    reader.readAsDataURL(file);
-  });
-}
-
-function addUrl() {
-  const url = document.getElementById('urlInput').value.trim();
-  if (!url) return;
-  addSlide(url, url.split('/').pop().split('?')[0] || 'image');
-  document.getElementById('urlInput').value = '';
-}
-
-function updateOv(key, val) {
-  if (!slides[sel]) return;
-  slides[sel].overlay[key] = val;
-  redraw();
-}
-
-function setPos(p) {
-  updateOv('position', p);
-  document.querySelectorAll('.pos-btn').forEach(b => b.classList.toggle('active', b.dataset.p === p));
-}
-
-// ─── Export Helpers ───────────────────────────────────────────────────────────
-function setExpMsg(msg, prog, showProg) {
-  document.getElementById('expMsg').textContent = msg;
-  if (showProg !== undefined) document.getElementById('progWrap').style.display = showProg ? 'block' : 'none';
-  if (prog !== undefined) document.getElementById('progBar').style.width = prog + '%';
-}
-
-function setExporting(val) {
-  exporting = val;
-  setCtrlsEnabled(!val && slides.length > 0);
-}
-
-// ─── Export: Carousel (images) ────────────────────────────────────────────────
-async function exportCarousel() {
-  if (!slides.length || exporting) return;
-  setExporting(true);
-  const cfg = MODES[mode];
-  const w = cfg.ew, h = cfg.eh;
-  const scale = w / cfg.pw;
-
-  for (let i = 0; i < slides.length; i++) {
-    setExpMsg(`Exporting ${i + 1} of ${slides.length}...`, ((i + 1) / slides.length) * 100, true);
-    const c = document.createElement('canvas');
-    c.width = w; c.height = h;
-    const cx = c.getContext('2d');
-    const s = slides[i];
-    const ss = { ...s, overlay: { ...s.overlay, size: (s.overlay.size || 36) * scale } };
-    try { const img = await loadImg(s.src); drawSlide(cx, img, ss, w, h); }
-    catch { drawSlide(cx, null, ss, w, h); }
-    await new Promise(res => c.toBlob(blob => {
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `slide_${String(i + 1).padStart(2, '0')}.jpg`;
-      a.click();
-      setTimeout(() => { URL.revokeObjectURL(a.href); res(); }, 400);
-    }, 'image/jpeg', 0.93));
+async function handleFiles(files){
+  for(const file of Array.from(files)){
+    if(file.type.startsWith('image/')){const reader=new FileReader();reader.onload=e=>addSlide(e.target.result,file.name,'image',null);reader.readAsDataURL(file);}
+    else if(file.type.startsWith('video/')){const url=URL.createObjectURL(file);const thumb=await getVideoThumbnail(url);addSlide(url,file.name,'video',thumb);}
   }
+}
+function addUrl(){const url=document.getElementById('urlInput').value.trim();if(!url)return;addSlide(url,url.split('/').pop().split('?')[0]||'image','image',null);document.getElementById('urlInput').value='';}
+function updateOv(key,val){if(!slides[sel])return;slides[sel].overlay[key]=val;redraw();}
+function setPos(p){updateOv('position',p);document.querySelectorAll('.pos-btn').forEach(b=>b.classList.toggle('active',b.dataset.p===p));}
 
-  setExporting(false);
-  setExpMsg(`✅ ${slides.length} images downloaded!`, 100, false);
-  setTimeout(() => setExpMsg('', undefined, false), 4000);
+function handleMusic(file){if(!file)return;if(musicObjectUrl)URL.revokeObjectURL(musicObjectUrl);musicObjectUrl=URL.createObjectURL(file);musicFileName=file.name;document.getElementById('musicName').textContent=file.name;document.getElementById('musicRow').style.display='flex';}
+function clearMusic(){if(musicObjectUrl)URL.revokeObjectURL(musicObjectUrl);musicObjectUrl=null;musicFileName='';document.getElementById('musicRow').style.display='none';document.getElementById('musicInput').value='';}
+
+function setExpMsg(msg,prog,showProg){document.getElementById('expMsg').textContent=msg;if(showProg!==undefined)document.getElementById('progWrap').style.display=showProg?'block':'none';if(prog!==undefined)document.getElementById('progBar').style.width=prog+'%';}
+function setExporting(val){exporting=val;setCtrlsEnabled(!val&&slides.length>0);}
+
+async function exportCarousel(){
+  if(!slides.length||exporting)return;
+  setExporting(true);
+  const cfg=MODES[mode],w=cfg.ew,h=cfg.eh,scale=w/cfg.pw;
+  for(let i=0;i<slides.length;i++){
+    setExpMsg('Exporting '+(i+1)+' of '+slides.length+'...',((i+1)/slides.length)*100,true);
+    const c=document.createElement('canvas');c.width=w;c.height=h;const cx=c.getContext('2d');
+    const s=slides[i];const ss={...s,overlay:{...s.overlay,size:(s.overlay.size||36)*scale}};
+    try{const media=s.type==='video'?await loadVid(s.src):await loadImg(s.src);drawSlide(cx,media,ss,w,h);}catch{drawSlide(cx,null,ss,w,h);}
+    await new Promise(res=>c.toBlob(blob=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='slide_'+String(i+1).padStart(2,'0')+'.jpg';a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);res();},400);},'image/jpeg',0.93));
+  }
+  setExporting(false);setExpMsg('\u2705 '+slides.length+' images downloaded!',100,false);setTimeout(()=>setExpMsg('',undefined,false),4000);
 }
 
-// ─── Export: Reel / Carousel Reel (video) ────────────────────────────────────
-async function exportReel(hybrid) {
-  if (!slides.length || exporting) return;
-  const mime = MediaRecorder.isTypeSupported('video/webm;codecs=vp9')
-    ? 'video/webm;codecs=vp9' : 'video/webm';
-
-  setExporting(true);
-  const cfg = MODES[mode];
-  const w = cfg.ew, h = cfg.eh;
-  const scale = w / cfg.pw;
-  const secsPerSlide = SECS_PER_SLIDE;
-
-  setExpMsg('Loading images...', 0, true);
-  const imgs = [];
-  for (const s of slides) {
-    try { imgs.push(await loadImg(s.src)); } catch { imgs.push(null); }
+async function exportReel(hybrid){
+  if(!slides.length||exporting)return;
+  const mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9':'video/webm';
+  setExporting(true);stopPreviewAnim();
+  const cfg=MODES[mode],w=cfg.ew,h=cfg.eh,scale=w/cfg.pw;
+  setExpMsg('Loading media...',0,true);
+  const mediaItems=[];
+  for(const s of slides){try{const item=s.type==='video'?await loadVid(s.src):await loadImg(s.src);if(s.type==='video'){item.muted=document.getElementById('muteVideos').checked;item.loop=true;}mediaItems.push(item);}catch{mediaItems.push(null);}}
+  const c=document.createElement('canvas');c.width=w;c.height=h;const cx=c.getContext('2d');
+  const canvasStream=c.captureStream(FPS);
+  let audioTracks=[],audioCtx=null,musicAudio=null;
+  if(musicObjectUrl){
+    try{
+      audioCtx=new AudioContext();const dest=audioCtx.createMediaStreamDestination();
+      musicAudio=new Audio(musicObjectUrl);musicAudio.loop=true;musicAudio.crossOrigin='anonymous';
+      const src=audioCtx.createMediaElementSource(musicAudio);src.connect(dest);
+      await musicAudio.play();audioTracks=dest.stream.getAudioTracks();
+    }catch(e){console.warn('Audio setup failed:',e);}
   }
-
-  const c = document.createElement('canvas');
-  c.width = w; c.height = h;
-  const cx = c.getContext('2d');
-
-  const stream = c.captureStream(FPS);
-  const recorder = new MediaRecorder(stream, { mimeType: mime });
-  const chunks = [];
-  recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
-  recorder.onstop = () => {
-    const blob = new Blob(chunks, { type: 'video/webm' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = hybrid ? 'carousel_reel.webm' : 'reel.webm';
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-    setExporting(false);
-    setExpMsg(`✅ ${hybrid ? 'Carousel Reel' : 'Reel'} downloaded! Convert to MP4 at cloudconvert.com`, 100, false);
-    setTimeout(() => setExpMsg('', undefined, false), 7000);
+  const combined=new MediaStream([...canvasStream.getVideoTracks(),...audioTracks]);
+  const recorder=new MediaRecorder(combined,{mimeType:mime});
+  const chunks=[];
+  recorder.ondataavailable=e=>{if(e.data.size>0)chunks.push(e.data);};
+  recorder.onstop=()=>{
+    if(musicAudio){musicAudio.pause();musicAudio=null;}if(audioCtx){audioCtx.close();audioCtx=null;}
+    const blob=new Blob(chunks,{type:'video/webm'});const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download=hybrid?'carousel_reel.webm':'reel.webm';a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+    setExporting(false);redraw();
+    setExpMsg('\u2705 '+(hybrid?'Carousel Reel':'Reel')+' downloaded! Convert to MP4 at cloudconvert.com',100,false);
+    setTimeout(()=>setExpMsg('',undefined,false),7000);
   };
-
   recorder.start();
-  const totalFrames = slides.length * secsPerSlide * FPS;
-  let frame = 0;
-
-  function renderFrame() {
-    const si = Math.floor(frame / (secsPerSlide * FPS));
-    if (si >= slides.length) { recorder.stop(); return; }
-    const s = slides[si];
-    const ss = { ...s, overlay: { ...s.overlay, size: (s.overlay.size || 36) * scale } };
-    drawSlide(cx, imgs[si], ss, w, h);
-
-    // Fade to black between slides
-    const prog = (frame % (secsPerSlide * FPS)) / (secsPerSlide * FPS);
-    if (prog > 0.85) {
-      const alpha = (prog - 0.85) / 0.15;
-      cx.fillStyle = `rgba(0,0,0,${alpha})`;
-      cx.fillRect(0, 0, w, h);
-    }
-
-    frame++;
-    const pct = Math.round((frame / totalFrames) * 100);
-    setExpMsg(`Rendering: ${pct}%`, pct, true);
-    if (frame < totalFrames) requestAnimationFrame(renderFrame);
-    else recorder.stop();
+  const totalFrames=slides.length*SECS_PER_SLIDE*FPS;let frame=0,currentSlideIdx=-1;
+  function renderFrame(){
+    const si=Math.floor(frame/(SECS_PER_SLIDE*FPS));if(si>=slides.length){recorder.stop();return;}
+    if(si!==currentSlideIdx){currentSlideIdx=si;if(slides[si].type==='video'&&mediaItems[si]){mediaItems[si].currentTime=0;mediaItems[si].play().catch(()=>{});}}
+    const s=slides[si];const ss={...s,overlay:{...s.overlay,size:(s.overlay.size||36)*scale}};
+    drawSlide(cx,mediaItems[si],ss,w,h);
+    const prog=(frame%(SECS_PER_SLIDE*FPS))/(SECS_PER_SLIDE*FPS);
+    if(prog>0.85){const alpha=(prog-0.85)/0.15;cx.fillStyle='rgba(0,0,0,'+alpha+')';cx.fillRect(0,0,w,h);}
+    frame++;setExpMsg('Rendering: '+Math.round((frame/totalFrames)*100)+'%',Math.round((frame/totalFrames)*100),true);
+    if(frame<totalFrames)requestAnimationFrame(renderFrame);else recorder.stop();
   }
   renderFrame();
 }
 
-// ─── AI Caption Generator ─────────────────────────────────────────────────────
-async function generateCaption() {
-  const topic = document.getElementById('topicInput').value.trim();
-  if (!topic) return;
-
-  const btn = document.getElementById('genBtn');
-  btn.disabled = true;
-  btn.textContent = '✨ Writing...';
-  document.getElementById('capOutWrap').style.display = 'block';
-  document.getElementById('capOut').value = 'Generating your caption...';
-
-  const modeHints = {
-    reel:     'This is a short Reel video. Make the hook punchy and action-focused for 15–30 seconds of content.',
-    carousel: 'This is a carousel post (swipeable photos). Subtly hint there are multiple photos to swipe through.',
-    hybrid:   'This is a Carousel Reel — a swipeable video in the Reels feed. Make it feel exciting and visual.'
-  };
-
-  try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{
-          role: 'user',
-          content: `Write an Instagram caption for this post: "${topic}"\n\nBusiness: Extreme Leo Tours / Ambiorix Tours, Puerto Plata, Dominican Republic. Dune buggy & ATV adventures through jungle, rivers, and mountains.\nWebsite: ambiorixtours.com\nInstagram: @AmbiorixToursPOP\n\nPost format: ${modeHints[mode]}\n\nWrite:\n1. A punchy 1-line hook (make people stop scrolling — no opening emoji)\n2. 2-3 sentences describing the experience vividly and emotionally\n3. Call to action: Book at ambiorixtours.com or DM to reserve\n4. Blank line, then 20-25 relevant hashtags (Puerto Plata tourism, Dominican Republic travel, adventure tours, Caribbean travel)\n\nReady to copy-paste. No markdown. No surrounding quotes.`
-        }]
-      })
-    });
-    const data = await resp.json();
-    document.getElementById('capOut').value = data.content?.[0]?.text || 'Error — please try again';
-  } catch (err) {
-    document.getElementById('capOut').value = 'Error: ' + err.message;
-  }
-
-  btn.disabled = false;
-  btn.textContent = '✨ Generate Caption + Hashtags';
+async function generateCaption(){
+  const topic=document.getElementById('topicInput').value.trim();if(!topic)return;
+  const btn=document.getElementById('genBtn');btn.disabled=true;btn.textContent='Writing...';
+  document.getElementById('capOutWrap').style.display='block';document.getElementById('capOut').value='Generating your caption...';
+  const modeHints={reel:'This is a short Reel video. Make the hook punchy and action-focused for 15-30 seconds of content.',carousel:'This is a carousel post (swipeable photos). Subtly hint there are multiple photos to swipe through.',hybrid:'This is a Carousel Reel - a swipeable video in the Reels feed. Make it feel exciting and visual.'};
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:'Write an Instagram caption for this post: "'+topic+'"\n\nBusiness: Extreme Leo Tours / Ambiorix Tours, Puerto Plata, Dominican Republic. Beach horseback riding, dune buggy & ATV adventures.\nWebsite: ambiorixtours.com\nInstagram: @AmbiorixToursPOP\n\nPost format: '+modeHints[mode]+'\n\nWrite:\n1. A punchy 1-line hook (no opening emoji)\n2. 2-3 sentences describing the experience vividly\n3. Call to action: Book at ambiorixtours.com or DM to reserve\n4. Blank line then 20-25 relevant hashtags\n\nReady to copy-paste. No markdown. No surrounding quotes.'}]})});
+    const data=await resp.json();document.getElementById('capOut').value=data.content?.[0]?.text||'Error - please try again';
+  }catch(err){document.getElementById('capOut').value='Error: '+err.message;}
+  btn.disabled=false;btn.textContent='\u2728 Generate Caption + Hashtags';
 }
+function copyCaption(){navigator.clipboard.writeText(document.getElementById('capOut').value).then(()=>{const btn=document.querySelector('.copy-btn');btn.textContent='\u2705 Copied!';setTimeout(()=>btn.textContent='📋 Copy Caption',2000);});}
 
-function copyCaption() {
-  const text = document.getElementById('capOut').value;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.querySelector('.copy-btn');
-    btn.textContent = '✅ Copied!';
-    setTimeout(() => btn.textContent = '📋 Copy Caption', 2000);
-  });
-}
-
-// ─── Init ─────────────────────────────────────────────────────────────────────
 setMode('carousel');
 </script>
 </body>
