@@ -392,16 +392,21 @@ async function exportReel(hybrid){
     setTimeout(()=>setExpMsg('',undefined,false),7000);
   };
   recorder.start();
-  const totalFrames=slides.length*SECS_PER_SLIDE*FPS;let frame=0,currentSlideIdx=-1;
+  const totalSecs=slides.length*SECS_PER_SLIDE;
+  const startTime=performance.now();
+  let currentSlideIdx=-1;
   function renderFrame(){
-    const si=Math.floor(frame/(SECS_PER_SLIDE*FPS));if(si>=slides.length){recorder.stop();return;}
+    const elapsed=(performance.now()-startTime)/1000;
+    if(elapsed>=totalSecs){recorder.stop();return;}
+    const si=Math.floor(elapsed/SECS_PER_SLIDE);
     if(si!==currentSlideIdx){currentSlideIdx=si;if(slides[si].type==='video'&&mediaItems[si]){mediaItems[si].currentTime=0;mediaItems[si].play().catch(()=>{});}}
     const s=slides[si];const ss={...s,overlay:{...s.overlay,size:(s.overlay.size||36)*scale}};
     drawSlide(cx,mediaItems[si],ss,w,h);
-    const prog=(frame%(SECS_PER_SLIDE*FPS))/(SECS_PER_SLIDE*FPS);
-    if(prog>0.85){const alpha=(prog-0.85)/0.15;cx.fillStyle='rgba(0,0,0,'+alpha+')';cx.fillRect(0,0,w,h);}
-    frame++;setExpMsg('Rendering: '+Math.round((frame/totalFrames)*100)+'%',Math.round((frame/totalFrames)*100),true);
-    if(frame<totalFrames)requestAnimationFrame(renderFrame);else recorder.stop();
+    const slideProgress=(elapsed-(si*SECS_PER_SLIDE))/SECS_PER_SLIDE;
+    if(slideProgress>0.85){const alpha=(slideProgress-0.85)/0.15;cx.fillStyle='rgba(0,0,0,'+alpha+')';cx.fillRect(0,0,w,h);}
+    const pct=Math.min(99,Math.round((elapsed/totalSecs)*100));
+    setExpMsg('Rendering: '+pct+'%',pct,true);
+    requestAnimationFrame(renderFrame);
   }
   renderFrame();
 }
